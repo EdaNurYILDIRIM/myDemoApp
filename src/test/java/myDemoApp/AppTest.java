@@ -6,9 +6,42 @@ package myDemoApp;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 class AppTest {
     @Test void appHasAGreeting() {
         App classUnderTest = new App();
         assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+    }
+    @Test void arrayNullTest() {
+        assertThrows(Exception.class,() -> { App.getElementFromGivenIndex(null, 2, 1,3); });
+    }
+    @Test void indexBoundsTest() {
+        ArrayList<Integer> a = new ArrayList<Integer>();
+        for(int i = 0 ; i<10; i++){
+            a.add(i);
+        }
+        assertThrows(Exception.class,() -> { App.getElementFromGivenIndex(a, 6, 0, 5); });     
+        assertThrows(Exception.class,() -> { App.getElementFromGivenIndex(a, 4, 1, 5); });
+        
+    }
+    @Test void emptyArrayTest() {
+
+        ArrayList<Integer> b= new ArrayList<Integer>();        
+        assertThrows(Exception.class,() -> { App.getElementFromGivenIndex(b, 0, 0,2); });
+        
+    }
+    
+    @Test void correctInputTest() {
+        ArrayList<Integer> a = new ArrayList<Integer>();
+        for(int i = 0 ; i<10; i++){
+            a.add(i);
+        }
+        try{
+            assertEquals(3,App.getElementFromGivenIndex(a, 1, 0,2));
+            assertEquals(3,App.getElementFromGivenIndex(a, 5, 1,2));
+        }catch(Exception e){
+
+        }
     }
 }
